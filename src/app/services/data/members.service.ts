@@ -25,8 +25,8 @@ export class MembersService {
         'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
     });
 
-    MEMBERS_SERVICE_URI: string = environment.webServiceURL + "member/";
-    ORGANIZATIONS_SERVICE_URI: string = environment.webServiceURL + "organizations/";
+  MEMBERS_SERVICE_URI: string = environment.webServiceURL  + "member/";
+  ORGANIZATIONS_SERVICE_URI: string = environment.webServiceURL  + "organizations/";
     requestQuery: string;
     helper = new JwtHelperService();
     accessToken = localStorage.getItem("access_token");
@@ -818,6 +818,24 @@ export class MembersService {
             return response.toString();
     }
 
+    async getInstagramURL(memberID: string) {
+      this.requestQuery = `${this.MEMBERS_SERVICE_URI}GetInstagramURL/${memberID}`;
+      let response = await this.httpClient.get(this.requestQuery
+        ,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'authorization': 'Bearer ' + localStorage.getItem("access_token")
+          },
+          responseType: 'text'
+        }).toPromise();
+      if (response == null)
+        return "";
+      else
+        return response.toString();
+    }
+
+
     async saveChannelID(memberID: string, channelID: string) {
 
         let postBody: YoutubeDataModel = {
@@ -834,6 +852,24 @@ export class MembersService {
                     'authorization': 'Bearer ' + localStorage.getItem("access_token")
                 }
             }).toPromise();
+    }
+
+    async saveInstagramURL(memberID: string, instagramURL: string) {
+
+      let postBody = {
+        memberID: memberID,
+        channelID: instagramURL
+      }
+      let requestData = JSON.stringify(postBody);
+      this.requestQuery = `${this.MEMBERS_SERVICE_URI}SetInstagramURL`;
+      let response = await this.httpClient.put(this.requestQuery, requestData
+        ,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'authorization': 'Bearer ' + localStorage.getItem("access_token")
+          }
+        }).toPromise();
     }
 
     async getInstagramAccessToken(code: string) {

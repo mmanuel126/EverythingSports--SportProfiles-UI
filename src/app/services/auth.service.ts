@@ -14,13 +14,14 @@ export class AuthService implements IAuthService {
 
     }
 
-    ACCOUNT_SERVICE_URI: string = environment.webServiceURL + "account/";
-    MEMBERS_SERVICE_URI: string = environment.webServiceURL + "member/";
+  ACCOUNT_SERVICE_URI: string = environment.webServiceURL  + "account/";
+  MEMBERS_SERVICE_URI: string = environment.webServiceURL  + "member/";
 
     async login(_loginModel: Login) {
         let requestQuery = `${this.ACCOUNT_SERVICE_URI}login`;
         let requestData = { email: _loginModel.email, password: _loginModel.password };
-        let response = await this.httpClient.post<UserModel>(requestQuery, requestData).toPromise();
+      let response = await this.httpClient.post<UserModel>(requestQuery, requestData,
+        { headers: { 'Content-Type': 'application/json' } }).toPromise();
         return response;
     }
 

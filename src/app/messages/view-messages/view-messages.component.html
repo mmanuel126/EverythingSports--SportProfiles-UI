@@ -16,7 +16,7 @@
           <table style=" width:0px; padding-top:25px">
             <tr>
               <td style="vertical-align: top">
-                <table style="width:0px;border-bottom: solid 2px #e7eadf;">
+                <table *ngIf="this.msgCnt!=0" style="width:0px;border-bottom: solid 2px white;">
                   <tr>
                     <td style=" text-align:right; vertical-align: middle">
                       <div id="pnlInboxSearch" style="padding-bottom:15px">
@@ -41,30 +41,30 @@
                   </tr>
                 </table>
 
-                <div class="btn-group" role="group" aria-label="Message Menu" style="font-size:8pt">
-                  <button (click)="showNewMessagePopup(newMsgModal)" type="button" class="btn btn-secondary">
+                <div  class="btn-group" role="group" aria-label="Message Menu" style="font-size:8pt">
+                  <button (click)="showNewMessagePopup(newMsgModal)" title="Create new message" type="button" class="btn btn-secondary">
                     <i class="fa fa-edit"></i>&nbsp;New
                   </button>
+                  <span *ngIf="this.msgCnt!=0">
+                      <button  (click)="markBoxes('Read')" type="button" class="btn btn-secondary">
+                          <i class="fa fa-envelope-open"></i>&nbsp;Mark As Read
+                      </button>
 
-                  <button (click)="markBoxes('Read')" type="button" class="btn btn-secondary">
-                    <i class="fa fa-envelope-open"></i>&nbsp;Mark As Read
-                  </button>
+                      <button  (click)="markBoxes('UnRead')" type="button" class="btn btn-secondary">
+                          <i class="fa fa-envelope"></i>&nbsp;Mark As Unread
+                      </button>
 
-                  <button (click)="markBoxes('UnRead')" type="button" class="btn btn-secondary">
-                    <i class="fa fa-envelope"></i>&nbsp;Mark As Unread
-                  </button>
-
-                  <button (click)="DeleteItems();" type="button" class="btn btn-secondary">
-                    <i class="fa fa-trash"></i>&nbsp;Delete
-                  </button>
-
+                      <button (click)="DeleteItems();" type="button" class="btn btn-secondary">
+                          <i class="fa fa-trash"></i>&nbsp;Delete
+                      </button>
+                  </span>
                 </div>
 
                 <div *ngIf="spinner" style="padding-left:0px;padding-top:5px; font-size:10pt;display:block">
                   <i class="fa fa-spinner fa-spin"></i>&nbsp;Loading...
                 </div>
 
-                <table style=" width:0px; background-color:white;">
+                <table *ngIf="this.msgCnt!=0" style=" width:0px; background-color:white;">
                   <!-- middle part -->
                   <tr>
                     <td>
@@ -102,7 +102,7 @@
           </table>
 
           <div *ngIf="this.msgCnt==0;else showMsgList_Content">
-            There are no messages to display.
+            <br />There are no messages to display.
           </div>
         </div>
         <br><br>
@@ -213,7 +213,7 @@
   </div>
 
   <div class="modal-body">
-    <form #newMsgForm='ngForm' name="newMsgForm">
+    <form #newMsgForm='ngForm' name="newMsgForm" autocomplete="off">
       <div class="Row">
         <div class="Cell">
           To:
@@ -221,9 +221,9 @@
         <Div class="Cell">
           <div class="form-group">
             <div class="input-group">
-              <input class="form-control" name="txtKey" #txtKey="ngModel" autocomplete="off" type="text" required
+              <input  class="form-control" md-maxlength="30" autocomplete="off"  ng-model="txtKey"   name="txtKey" #txtKey="ngModel"  type="search" required
                 ngModel [(ngModel)]="autoCompleteModel.name" (keyup)="searchContact(autoCompleteModel.name)"
-                placeholder="Start typing a name..." style="width:297px; height:29px; padding-top:10px" />
+                placeholder="Start typing a name..." style="width:297px; height:29px; padding-top:10px;" />
               <div *ngIf="txtKey.errors && (txtKey.dirty || txtKey.touched)  && !txtKey.valid">
                 <span class="help-bpx" style="color:red; font-size:11pt">&nbsp;Required.</span>
               </div>

@@ -134,7 +134,7 @@ export class ShowProfileComponent implements OnInit {
     tag.src = 'https://www.youtube.com/iframe_api';
     document.body.appendChild(tag);
     this.memberID = this.route.snapshot.queryParamMap.get('memberID');
-    //this.code = this.route.snapshot.queryParamMap.get('code');
+    this.code = this.route.snapshot.queryParamMap.get('code');
     //this.code = this.code.substr(0,this.code.length-1);
     //this.memberID = this.session.getSessionVal('userID');
     this.getPrivacySettings();
@@ -146,14 +146,14 @@ export class ShowProfileComponent implements OnInit {
     this.getEducationInfo();
     this.getVideoPlayList();
     
-    // if (this.code != null)
-    // {
+     if (this.code != null)
+     {
 
-    //    let x = this.membersSvc.getInstagramAccessToken(this.code);
+        let x = this.membersSvc.getInstagramAccessToken(this.code);
       
-    //    console.log(x);
+        console.log(x);
      
-    // }
+     }
   }
 
   ngOnDestroy() {

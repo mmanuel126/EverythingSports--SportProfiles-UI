@@ -30,7 +30,7 @@ export class SponsoredAdsComponent implements OnInit {
    }
 
    ngOnInit() {
-      // this.getData();
+       this.getData();
    }
 
    async getData() {

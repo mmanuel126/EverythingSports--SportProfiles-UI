@@ -196,7 +196,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DatePipe, Title,
     // register global error handler
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    //{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
 
     {
       provide:

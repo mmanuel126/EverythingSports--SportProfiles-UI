@@ -23,6 +23,7 @@ export class EditProfileComponent implements OnInit {
   public isSaving = false;
   public isSuccess = false;
   channelID: string;
+  instagramURL: string;
   defaultTab: number;
   mySubscription: any;
 
@@ -48,6 +49,7 @@ export class EditProfileComponent implements OnInit {
       this.defaultTab = 0;
     this.getBasicInfo();
     this.getChannelID();
+    this.getInstagramURL();
   }
 
   ngOnDestroy() {
@@ -68,7 +70,11 @@ export class EditProfileComponent implements OnInit {
   }
 
   async getChannelID() {
-    this.channelID = await this.membersSvc.getChannelId(this.memberID)
+    this.channelID = await this.membersSvc.getChannelId(this.memberID);
+  }
+
+  async getInstagramURL() {
+    this.instagramURL = await this.membersSvc.getInstagramURL(this.memberID);
   }
 
   async saveChannelID(frm) {
@@ -79,4 +85,11 @@ export class EditProfileComponent implements OnInit {
     this.isSuccess = true;
   }
 
+  async saveInstagramURL(frm) {
+    this.isSuccess = false;
+    this.isSaving = true;
+    await this.membersSvc.saveInstagramURL(this.memberID, this.instagramURL);
+    this.isSaving = false;
+    this.isSuccess = true;
+  }
 }

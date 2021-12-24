@@ -7,33 +7,32 @@
       </div>
     </div>
     <div class="scroll-area-lg" style="height:400px;">
-      <perfect-scrollbar [autoPropagation]="true">
+        <perfect-scrollbar [autoPropagation]="true">
+           
+            <table id="tbJobs">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr *ngFor='let res of jobs | async; let i = index'>
+                        <td style="vertical-align: top; width: 100%; text-align: left; padding-top: -100px;">
+                            <span style="font-size:9pt">
+                                <a (click)="showJobDescPopup(lgAdModal, res.description, res.how_to_apply, res.title)" href="#"
+                                   data-toggle="modal" data-target="#lgAdModal">{{res.title}}</a>
+                            </span><br>
+                            <span style="font-size:8pt">
+                                <a href="{{res.company_url}}" target='_blank'>{{res.company}}</a>&nbsp;-&nbsp;<span style="color:green">{{res.type}}</span>
+                            </span><br>
+                            <small><span style='color:gray'>location:</span>&nbsp;{{res.location}}</small><br>
+                            <small><span style='color:gray'>created at:</span>&nbsp;{{res.created_at}}</small><br>
+                            <hr style="color:grey">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <table id="tbJobs">
-          <tbody>
-            <tr>
-              <th></th>
-              <th></th>
-            </tr>
-            <tr *ngFor='let res of jobs | async; let i = index'>
-              <td style="vertical-align: top; width: 100%; text-align: left; padding-top: -100px;">
-                <span style="font-size:9pt">
-                  <a (click)="showJobDescPopup(lgAdModal, res.description, res.how_to_apply, res.title)" href="#"
-                    data-toggle="modal" data-target="#lgAdModal">{{res.title}}</a>
-                </span><br>
-                <span style="font-size:8pt">
-                  <a href="{{res.company_url}}" target='_blank'>{{res.company}}</a>&nbsp;-&nbsp;<span
-                    style="color:green">{{res.type}}</span>
-                </span><br>
-                <small><span style='color:gray'>location:</span>&nbsp;{{res.location}}</small><br>
-                <small><span style='color:gray'>created at:</span>&nbsp;{{res.created_at}}</small><br>
-                <hr style="color:grey">
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-      </perfect-scrollbar>
+        </perfect-scrollbar>
     </div>
   </div>
 </div>
